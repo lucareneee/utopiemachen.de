@@ -53,7 +53,7 @@ const bigTitle=document.getElementById("bigTitle"),
       layersEl=document.getElementById("layers"),
       tilesEl=document.getElementById("tiles");
 
-/* === Poster === */
+/* === Poster generieren === */
 function generatePoster(){
   layersEl.innerHTML="";tilesEl.innerHTML="";
   bigTitle.style.transform=`scale(${rand(0.92,1.18)}) rotate(${rand(-6,6)}deg)`;
@@ -115,7 +115,11 @@ toggleEmbed=document.getElementById('toggleEmbed'),
 embedWrap=document.getElementById('embedWrap'),
 embedFrame=document.getElementById('embedFrame');
 
-function md(t){return t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n- (.+)/g,'<br>• $1').replace(/\n/g,'<br>');}
+function md(t){
+  return t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+          .replace(/\n- (.+)/g,'<br>• $1')
+          .replace(/\n/g,'<br>');
+}
 
 function openModal(item){
   const cfg=CAT[item.category]||{};
@@ -150,7 +154,66 @@ function openModal(item){
       modalTags.innerHTML=d.tags.map(t=>`<span class="tag" style="background:${cfg.color}">${t}</span>`).join('');
     };
   }
-  modalWrap.style.display='flex';modalWrap.setAttribute('aria-hidden','false');
+  modalWrap.style.display='flex';
+  modalWrap.setAttribute('aria-hidden','false');
 }
 
-document.getElementById('closeModal').onclick=
+/* === Modal schließen === */
+document.getElementById('closeModal').onclick=()=>{
+  modalWrap.style.display='none';
+  modalWrap.setAttribute('aria-hidden','true');
+  embedWrap.style.display="none";
+  embedFrame.removeAttribute('src');
+};
+modalWrap.addEventListener('click',e=>{
+  if(e.target===modalWrap){
+    modalWrap.style.display='none';
+    modalWrap.setAttribute('aria-hidden','true');
+    embedWrap.style.display="none";
+    embedFrame.removeAttribute('src');
+  }
+});
+
+/* === Filter & Buttons === */
+document.getElementById('regenerateBtn').onclick=generatePoster;
+document.getElementById('showListBtn').onclick=()=>{
+  modalTitle.textContent='UTMA · Überblick';
+  modalMeta.textContent='Alle Einträge in Kurzform';
+  modalDesc.innerHTML=ITEMS.map(i=>{
+    const cfg=CAT[i.category]||{};
+    return `<div style="margin:10px 0 14px">
+      <strong>${i.title}</strong><br>
+      <small style="opacity:.8">${i.meta}</small><br>
+      <span style="opacity:.85">${i.desc}</span><br>
+      <span class="tag" style="background:${cfg.color}">${cfg.badge}</span>
+    </div>`;
+  }).join('');
+  modalTags.innerHTML='';
+  modalCategory.textContent='Alle';
+  sideAccent.className='side-accent';
+  primaryAction.textContent='Schließen';
+  primaryAction.href='#';
+  primaryAction.onclick=e=>{e.preventDefault();document.getElementById('closeModal').click();};
+  toggleEmbed.style.display="none";
+  embedWrap.style.display="none";
+  embedFrame.removeAttribute('src');
+  modalWrap.style.display='flex';
+  modalWrap.setAttribute('aria-hidden','false');
+};
+
+/* === Filterbuttons === */
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    generatePoster();
+  });
+});
+
+/* === Init === */
+generatePoster();
+
+/* Shortcut: R neu würfeln */
+document.addEventListener('keydown',e=>{
+  if(e.key.toLowerCase()==='r') generatePoster();
+});
