@@ -1,1 +1,39 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UTMA — Utopie Machen! · Living Poster Portal</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Script -->
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="poster" id="poster" aria-live="polite">
+    <div class="big-title" id="bigTitle">UTMA</div>
+    <div id="layers"></div>
+    <div id="tiles"></div>
+  </div>
+
+  <div class="nav" role="navigation" aria-label="Steuerung">
+    <div class="filter" aria-label="Kategorie-Filter">
+      <button class="chip active" data-filter="ALL">Alle</button>
+      <button class="chip" data-filter="COMMUNITY">Community</button>
+      <button class="chip" data-filter="ARCH">Architektur & Zukunft</button>
+      <button class="chip" data-filter="ART">Art & Chaos</button>
+      <button class="chip" data-filter="WORDS">Words & Thoughts</button>
+    </div>
+    <button class="btn" id="regenerateBtn" title="Poster neu würfeln">Regenerate</button>
+    <button class="btn" id="showListBtn" title="Alle Einträge kurz anzeigen">Übersicht</button>
+  </div>
+
+  <div class="credit">UTMA · Utopie Machen! — ein Zukunftsportal</div>
+
+  <!-- Modal -->
+  <div class="modal-wrap" id="modalWrap" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div style="display:flex; gap:8px; justi
 
