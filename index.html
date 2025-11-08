@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>UTMA — Utopie Machen! · Living Poster Portal</title>
 
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Script -->
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -35,5 +32,29 @@
   <!-- Modal -->
   <div class="modal-wrap" id="modalWrap" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true">
-      <div style="display:flex; gap:8px; justi
-
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-bottom:6px">
+        <button id="closeModal" class="btn">Schließen</button>
+      </div>
+      <h3 id="modalTitle">Titel</h3>
+      <div class="row">
+        <div class="col">
+          <p id="modalMeta" style="opacity:.8;font-weight:700"></p>
+          <p id="modalDesc"></p>
+          <div id="modalTags" style="margin-top:8px"></div>
+          <div class="actions">
+            <a class="link-like" id="primaryAction" target="_blank" rel="noopener">Mehr</a>
+            <button class="btn" id="toggleEmbed" style="display:none">Im Fenster anzeigen</button>
+          </div>
+          <div class="iframe-wrap" id="embedWrap">
+            <iframe id="embedFrame" title="Eingebetteter Inhalt"></iframe>
+          </div>
+        </div>
+        <div class="side">
+          <div id="sideAccent" class="side-accent">Kategorie</div>
+          <div id="modalCategory" style="margin-top:10px;font-weight:900;text-align:center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
